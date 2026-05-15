@@ -2,6 +2,16 @@
 
 > An automated Cyber Threat Intelligence platform that collects, processes, analyzes, and visualizes real-time cyber threat data from multiple OSINT sources.
 
+<h3 align="center">
+  🔗 Live Project Access
+</h3>
+
+<p align="center">
+  <a href="https://cti-aggregator.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/Visit-Live%20Website-0A66C2?style=for-the-badge&logo=google-chrome&logoColor=white"/>
+  </a>
+</p>
+
 ---
 
 ## 🚀 Overview
@@ -147,21 +157,39 @@ pip install -r requirements.txt
 python app.py
 ```
 
----
+<h1 align="center">📸 Project Screenshots</h1>
 
-# 📸 Project Screenshots
+<br>
 
-## 🔐 Login Page
+<h2 align="center">🔐 Login Page</h2>
 
-*Add screenshot here*
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/83113203-6fc0-4f07-9082-fb9f33d5ce94" width="900"/>
+</p>
 
-## 📊 Dashboard
+<br><br>
 
-*Add screenshot here*
+<h2 align="center">🏠 Homepage</h2>
 
-## 📑 Reports Page
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/edfc6dfb-c3c4-4c18-adc1-128bd8d7b573" width="900"/>
+</p>
 
-*Add screenshot here*
+<br><br>
+
+<h2 align="center">📊 Dashboard</h2>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/146889b6-ca17-442b-8a8b-158f6cdedace" width="900"/>
+</p>
+
+<br><br>
+
+<h2 align="center">📑 Reports Page</h2>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f6a63a62-6fc2-49c1-808d-d091f763607d" width="900"/>
+</p>
 
 ---
 
