@@ -73,6 +73,7 @@ CTI_AGGREGATOR/
 ├── app.py
 ├── requirements.txt
 ├── Procfile
+├── screenshots
 ├── runtime.txt
 ├── templates/
 ├── static/
@@ -160,7 +161,7 @@ Add screenshot here:
 Add screenshot here:
 
 ```md
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.jpeg)
 ```
 
 ---
