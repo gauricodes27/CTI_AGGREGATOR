@@ -1,0 +1,247 @@
+/* ===============================
+   CYBER THREAT INTELLIGENCE DASHBOARD
+   Enhanced UI + Theme + Animations
+   =============================== */
+
+:root {
+  --bg-dark: #0f1724;
+  --card-dark: #0b1220;
+  --accent: #06b6d4;
+  --accent-2: #7c3aed;
+  --muted: #94a3b8;
+  --glass: rgba(255, 255, 255, 0.04);
+  --bg-light: #f4f6fa;
+  --text-light: #0f1724;
+  --text-dark: #e6eef8;
+}
+
+/* ===============================
+   Base
+   =============================== */
+body {
+  background: radial-gradient(1000px 600px at 10% 10%, rgba(7, 10, 15, 0.6), transparent),
+    radial-gradient(800px 400px at 90% 90%, rgba(124, 58, 237, 0.12), transparent),
+    var(--bg-dark);
+  color: var(--text-dark);
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  overflow-x: hidden;
+  transition: background 0.6s, color 0.6s;
+}
+
+/* ===============================
+   Sidebar Navigation
+   =============================== */
+#sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  background: linear-gradient(180deg, rgba(11, 18, 32, 0.9), rgba(11, 18, 32, 0.7));
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  transition: background 0.6s;
+}
+
+#sidebar h3 {
+  color: var(--accent);
+  font-weight: 700;
+  margin: 20px;
+}
+
+#sidebar .nav-link {
+  color: #cbd5e1;
+  font-size: 14px;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+#sidebar .nav-link:hover {
+  color: var(--accent-2);
+  background: rgba(255, 255, 255, 0.05);
+  padding-left: 28px;
+}
+
+/* ===============================
+   Main Container
+   =============================== */
+.container-fluid {
+  margin-left: 260px;
+  padding: 40px;
+  transition: margin-left 0.3s;
+}
+
+/* ===============================
+   Cards (Glassmorphism)
+   =============================== */
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(2, 6, 23, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 18px rgba(6, 182, 212, 0.2);
+}
+
+/* Gradient header for cards */
+.card h4 {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+/* Custom gradient color sets */
+.gradient-blue {
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+}
+
+.gradient-red {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.gradient-green {
+  background: linear-gradient(90deg, #22c55e, #a3e635);
+}
+
+.gradient-purple {
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+h2,
+h4 {
+  color: #f8fafc;
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+}
+
+/* ===============================
+   Charts & Animations
+   =============================== */
+canvas {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  padding: 8px;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===============================
+   Live Threat Feed
+   =============================== */
+#liveFeed {
+  animation: slideUp 1.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#feedList {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#feedList li {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 6px 0;
+  background: var(--glass);
+  transition: background 0.3s;
+}
+
+#feedList li:hover {
+  background: rgba(6, 182, 212, 0.1);
+}
+
+/* ===============================
+   Tables
+   =============================== */
+.table-dark {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--glass);
+}
+
+/* ===============================
+   Dark/Light Theme Toggle
+   =============================== */
+body[data-theme="light"] {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+body[data-theme="light"] #sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-light);
+}
+
+body[data-theme="light"] .card {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: var(--text-light);
+}
+
+body[data-theme="light"] .nav-link {
+  color: #334155;
+}
+
+body[data-theme="light"] .nav-link:hover {
+  color: var(--accent);
+}
+
+/* ===============================
+   Utility Buttons
+   =============================== */
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-accent {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+
+.btn-accent:hover {
+  opacity: 0.85;
+}
+
+/* ===============================
+   Footer
+   =============================== */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cyber Threat Intelligence Aggregator — Home</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #06b6d4;
+      --accent-2: #7c3aed;
+      --muted: #94a3b8;
+      --glass: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: var(--bg);
+      color: #e6eef8;
+      font-family: Inter, system-ui, sans-serif
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: linear-gradient(90deg, var(--card), rgba(11, 18, 32, 0.8));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      align-items: center
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px
+    }
+
+    nav a:hover {
+      color: var(--accent)
+    }
+
+    .feed-row {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.03);
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      text-align: left;
+    }
+
+    .feed-source {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .feed-title {
+      flex: 1;
+      /* takes remaining space */
+      text-align: left;
+    }
+
+    .feed-status {
+      margin-left: auto;
+      /* pushes ONLY status to the right */
+    }
+
+
+
+
+
+
+
+
+    .feed-row:hover {
+      background: rgba(6, 182, 212, 0.08);
+    }
+
+
+
+
+
+    .alert {
+      color: #ff6b6b;
+      font-weight: 700;
+    }
+
+    .safe {
+      color: #22c55e;
+      font-weight: 700;
+    }
+
+
+    .container {
+      padding: 24px;
+      display: grid;
+      gap: 24px
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(2, 6, 23, 0.6)
+    }
+
+    .card h2 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #fff
+    }
+
+    .feed {
+      display: grid;
+      gap: 12px
+    }
+
+    .feed-item {
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--glass);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s ease
+    }
+
+    .feed-item:hover {
+      background: rgba(6, 182, 212, 0.1)
+    }
+
+    .alert {
+      color: #fca5a5;
+      font-weight: 600
+    }
+
+    .safe {
+      color: #4ade80;
+      font-weight: 600
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 12px;
+      background: var(--glass);
+      text-align: center
+    }
+
+    .stat strong {
+      font-size: 24px;
+      display: block;
+      color: var(--accent)
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .feed-row {
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      from {
+        background: rgba(239, 68, 68, 0.25);
+      }
+
+      to {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+
+
+
+    .feed-row:hover {
+      box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.25);
+    }
+
+    .feed-refreshing {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+
+    .feed-item span:first-child,
+    .feed-row strong {
+
+      flex: 0;
+    }
+
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 20px
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Cyber Threat Intelligence Aggregator</h1>
+    <nav>
+      <a href="{{ url_for('homepage') }}">Home</a>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('reports') }}">Reports</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card" style="text-align:center;padding:24px;background:rgba(255,255,255,0.02);border-radius:16px;">
+      <h2>Welcome,
+
+      </h2>
+      <p style="color:var(--muted);font-size:14px;margin-top:6px;">
+        You are logged into the Cyber Threat Intelligence Aggregator. <br>
+        Monitor live feeds, generate reports, and access threat insights.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong id="feedCount">0</strong><span>Active Feeds</span></div>
+      <div class="stat"><strong id="alertCount">0</strong><span>New Alerts</span></div>
+      <div class="stat"><strong id="iocCount">0</strong><span>Indicators Collected</span></div>
+      <div class="stat"><strong id="reportCount">0</strong><span>New Reports</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Live Threat Feed</h2>
+      <div class="feed" id="liveThreatFeed"></div>
+    </div>
+
+    <div class="card">
+      <h2>Quick Actions</h2>
+
+      <button id="generateReportBtn"
+        style="padding:10px 14px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021427;font-weight:700;cursor:pointer">
+        Generate Report
+      </button>
+
+      <a href="{{ url_for('dashboard') }}"
+        style="padding:10px 14px;border-radius:8px;border:none;background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);margin-left:10px;cursor:pointer;text-decoration:none;">
+        Open Dashboard
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2025 Cyber Threat Intelligence Aggregator — Homepage
+  </footer>
+
+  <script>
+
+    if ("Notification" in window) {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    }
+
+
+    async function loadHomepageData() {
+      console.log("🔄 Refreshing homepage data...");
+
+      // Force backend refresh
+      //await fetch("/api/threat-feed");
+
+      // Stats
+      const stats = await (await fetch("/api/homepage-stats")).json();
+      document.getElementById("feedCount").textContent = stats.active_feeds;
+      document.getElementById("alertCount").textContent = stats.new_alerts;
+      document.getElementById("iocCount").textContent = stats.indicators;
+      document.getElementById("reportCount").textContent = stats.new_reports;
+
+      // Live feed
+      const feeds = await (await fetch("/api/live-threats")).json();
+      const container = document.getElementById("liveThreatFeed");
+      container.innerHTML = "";
+
+      feeds.forEach(t => {
+        const row = document.createElement("div");
+        row.className = "feed-row";
+        row.innerHTML = `
+      <span class="feed-source">${t.source}:</span>
+      <span class="feed-title">${t.title}</span>
+      <span class="feed-status ${t.severity === "ALERT" ? "alert" : "safe"}">
+        ${t.severity}
+      </span>
+    `;
+        container.appendChild(row);
+      });
+    }
+
+    document.getElementById("generateReportBtn").addEventListener("click", () => {
+      fetch("/api/generate-report", {
+        method: "POST"
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert("✅ Report generated successfully!");
+          window.location.href = "/reports"; // redirect to reports page
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ Failed to generate report");
+        });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("generateReportBtn");
+
+      if (!btn) {
+        console.error("❌ Generate Report button NOT found");
+        return;
+      }
+
+      console.log("✅ Generate Report button found");
+
+      btn.addEventListener("click", () => {
+        alert("Button clicked ✅");
+      });
+    });
+
+
+    // =====================
+    // REAL-TIME ALERT STREAM
+    // =====================
+    //const alertSource = new EventSource("/api/alerts/stream");
+
+    const alertSource = new EventSource("/api/alerts/stream");
+
+    alertSource.onmessage = function (event) {
+      const alert = JSON.parse(event.data);
+
+      // Browser notification
+      if (Notification.permission === "granted") {
+        new Notification("🚨 CTI Alert", {
+          body: `${alert.source}: ${alert.title}`,
+          icon: "https://cdn-icons-png.flaticon.com/512/565/565547.png"
+        });
+      }
+
+      // In-page toast
+      const toast = document.createElement("div");
+      toast.style.cssText = `
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #0b1220;
+    border-left: 4px solid #ef4444;
+    padding: 14px 18px;
+    color: #e6eef8;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    z-index: 9999;
+    font-size: 14px;
+    max-width: 320px;
+    animation: slideIn 0.4s ease;
+  `;
+
+      toast.innerHTML = `
+    <strong style="color:#ef4444">🚨 Critical Alert</strong><br>
+    <span style="color:#94a3b8">${alert.source}</span><br>
+    ${alert.title}
+  `;
+
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 6000);
+    };
+
+    setInterval(() => {
+      fetch("/api/simulate-alert", { method: "POST" });
+    }, 60000);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ Homepage UI loaded");
+
+    // ⏳ Delay API calls so UI renders first
+      setTimeout(() => {
+       loadHomepageData();
+      }, 800);
+
+    // 🔁 Refresh data every 60 seconds
+      setInterval(loadHomepageData, 60000);
+    });
+
+
+  </script>
+
+
+
+</body>
+
+</html>

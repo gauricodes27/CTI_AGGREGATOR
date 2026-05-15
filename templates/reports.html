@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - CTI Aggregator</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #1b2334;
+      --accent: #06b6d4;
+      --muted: #94a3b8;
+    }
+
+    body {
+      background: var(--bg);
+      color: #e6eef8;
+      font-family: Inter, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #0b1220;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    header h2 {
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    nav a {
+      color: var(--muted);
+      margin-left: 16px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .report-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .report-card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+
+    .report-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .report-card h3 {
+      color: #06b6d4;
+      margin-bottom: 10px;
+    }
+
+    .report-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .report-card button {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      color: #021427;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
+    }
+
+    .modal-content h2 {
+      color: #06b6d4;
+    }
+
+    .modal-content p {
+      margin-top: 10px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      background: transparent;
+      color: var(--muted);
+      font-size: 18px;
+      float: right;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .reports-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    /* Search container */
+    .search-wrapper {
+      position: relative;
+    }
+
+    /* Search icon */
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #38bdf8;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* Search input */
+    #searchBox {
+      background: #0b1220;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #e6eef8;
+      padding: 8px 12px 8px 34px;
+      border-radius: 20px;
+      width: 220px;
+      font-size: 13px;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    /* Hover & focus effects */
+    #searchBox:hover,
+    #searchBox:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>CTI Aggregator Reports</h2>
+    <nav>
+      <a href="{{url_for('homepage') }}">Home</a>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('reports') }}">Reports</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+      
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="reports-header">
+      <h1>Threat Intelligence Reports</h1>
+
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchBox" placeholder="Search reports..." />
+      </div>
+    </div>
+
+    <div class="report-list" id="reportList">
+      <!-- Reports dynamically generated here -->
+    </div>
+  </div>
+
+  <div class="modal" id="reportModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">✖</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalBody"></p>
+    </div>
+  </div>
+
+  <footer>© 2025 Cyber Threat Intelligence Aggregator • Reports Section</footer>
+
+
+  <script>
+    const reportList = document.getElementById('reportList');
+    const modal = document.getElementById('reportModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+
+    let reports = [];
+    let displayedReports = [];
+
+    // Fetch reports
+    fetch("/api/reports")
+      .then(res => res.json())
+      .then(data => {
+        reports = data;
+        renderReports(reports);
+      })
+      .catch(err => console.error("Failed to load reports:", err));
+
+    function renderReports(data) {
+      reportList.innerHTML = "";
+      displayedReports = data; // 🔥 key fix
+
+      if (data.length === 0) {
+        reportList.innerHTML =
+          "<p style='color:#94a3b8'>No reports found.</p>";
+        return;
+      }
+
+      data.forEach((r, i) => {
+        const card = document.createElement('div');
+        card.classList.add('report-card');
+
+        card.innerHTML = `
+      <h3>${r.title}</h3>
+      <p>${r.summary || "No summary available"}</p>
+      <button onclick="openReport(${i})">View Report</button>
+      <button style="margin-left:8px"
+              onclick="exportPDF('${r.id}')">
+        Export PDF
+      </button>
+    `;
+
+        reportList.appendChild(card);
+      });
+    }
+
+    const searchBox = document.getElementById("searchBox");
+
+    searchBox.addEventListener("keyup", () => {
+      const query = searchBox.value.toLowerCase().trim();
+
+      const filteredReports = reports.filter(r =>
+        (r.title || "").toLowerCase().includes(query) ||
+        (r.summary || "").toLowerCase().includes(query) ||
+        (r.category || "").toLowerCase().includes(query)
+      );
+
+      renderReports(filteredReports);
+    });
+
+
+    function openReport(index) {
+      const report = displayedReports[index];
+
+      modalTitle.textContent = report.title;
+      modalBody.textContent = report.details || "No details available";
+      modal.style.display = 'flex';
+    }
+
+
+
+    function exportPDF(reportId) {
+      console.log("Exporting report:", reportId);
+
+      if (!reportId) {
+        alert("Invalid report ID");
+        return;
+      }
+
+      window.open(`/api/reports/pdf/${reportId}`, "_blank");
+    }
+
+    closeModal.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    };
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Threat Risk Assessment Dashboard</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        /* ===== GLOBAL ===== */
+        body {
+            background: linear-gradient(135deg, #0f172a, #0b1220);
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CHART CARD ===== */
+        .chart-card {
+            background: rgba(30, 41, 59, 0.75);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        canvas {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        /* ===== GRID ===== */
+        #risk-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            position: relative;
+            padding: 25px;
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            background: rgba(30, 41, 59, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 6px;
+            width: 100%;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+
+        /* ===== RISK COLORS ===== */
+        .Critical::before {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+        }
+
+        .High::before {
+            background: linear-gradient(90deg, #f97316, #ea580c);
+        }
+
+        .Medium::before {
+            background: linear-gradient(90deg, #facc15, #eab308);
+        }
+
+        .Low::before {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+
+        /* ===== TEXT ===== */
+        .card h3 {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            margin: 6px 0;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .card b {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h2>Threat Risk Assessment Dashboard</h2>
+
+<!-- Donut Chart -->
+<div class="chart-card">
+    <h3>Risk Level Distribution</h3>
+    <canvas id="riskDonut"></canvas>
+</div>
+
+<!-- Risk Cards -->
+<div id="risk-container"></div>
+
+<script>
+
+fetch("/api/threats/risk")
+.then(res => res.json())
+.then(data => {
+
+    const container = document.getElementById("risk-container");
+
+    let counts = {
+        Critical: 0,
+        High: 0,
+        Medium: 0,
+        Low: 0
+    };
+
+    data.forEach(t => {
+
+        if(counts[t.level] !== undefined){
+            counts[t.level]++;
+        }
+
+        const div = document.createElement("div");
+        div.className = `card ${t.level}`;
+        div.innerHTML = `
+            <h3>${t.title}</h3>
+            <p>Risk Score: <b>${t.score}</b></p>
+            <p>Risk Level: <b>${t.level}</b></p>
+            <p>TLP: ${t.tlp}</p>
+        `;
+        container.appendChild(div);
+    });
+
+    const total = counts.Critical + counts.High + counts.Medium + counts.Low;
+
+    const ctx = document.getElementById("riskDonut").getContext("2d");
+
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Critical", "High", "Medium", "Low"],
+            datasets: [{
+                data: [
+                    counts.Critical,
+                    counts.High,
+                    counts.Medium,
+                    counts.Low
+                ],
+                backgroundColor: [
+                    "#ef4444",
+                    "#f97316",
+                    "#facc15",
+                    "#22c55e"
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "65%",
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: "#ffffff"
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let value = context.raw;
+                            let percentage = ((value / total) * 100).toFixed(1);
+                            return context.label + ": " + percentage + "%";
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+
+

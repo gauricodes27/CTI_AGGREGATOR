@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IOC Dashboard</title>
+  <style>
+    body {
+      background: #0f1724;
+      color: #e6eef8;
+      font-family: Inter, sans-serif;
+      margin: 0;
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    h1 {
+      color: #06b6d4;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #1b2334;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px;
+    }
+
+    .count {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🧬 IOC Dashboard</h1>
+  <p id="loading">Loading IOC data...</p>
+
+
+  <div class="card">
+    <h3>Total Indicators</h3>
+    <p id="totalIocs">0</p>
+  </div>
+
+  <div class="card">
+    <h3>Top Malicious IPs</h3>
+    <ul id="iocIps"></ul>
+  </div>
+
+  <div class="card">
+    <h3>Top Domains</h3>
+    <ul id="iocDomains"></ul>
+  </div>
+
+  <div class="card">
+    <h3>File Hashes</h3>
+    <ul id="iocHashes"></ul>
+  </div>
+</div>
+
+<script>
+fetch("/api/iocs")
+  .then(res => res.json())
+  .then(data => {
+  document.getElementById("loading").style.display = "none";
+
+  // ✅ FIX: SET TOTAL IOCS
+  document.getElementById("totalIocs").textContent = data.total_iocs;
+
+  renderList("iocIps", data.ips);
+  renderList("iocDomains", data.domains);
+  renderList("iocHashes", data.hashes);
+});
+
+function renderList(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = "";
+
+  if (items.length === 0) {
+    el.innerHTML = "<li>No data</li>";
+    return;
+  }
+
+  items.forEach(([value, count]) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${value} <span class="count">(${count})</span>`;
+    el.appendChild(li);
+  });
+}
+</script>
+
+</body>
+</html>
+

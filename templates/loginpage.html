@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cyber Threat Intelligence Aggregator — Login</title>
+  <meta name="description" content="Login page for the Cyber Threat Intelligence Aggregator" />
+  <style>
+    :root {
+      --bg: #0f1724;
+      /* dark navy */
+      --card: #0b1220;
+      --accent: #06b6d4;
+      /* cyan */
+      --accent-2: #7c3aed;
+      /* purple */
+      --muted: #94a3b8;
+      --glass: rgba(255, 255, 255, 0.04);
+    }
+
+    .brand-head * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(7, 10, 15, 0.6), transparent), radial-gradient(800px 400px at 90% 90%, rgba(124, 58, 237, 0.12), transparent), var(--bg);
+      color: #e6eef8
+    }
+
+    .container {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 36px
+    }
+
+    /* Card */
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6)
+    }
+
+    /* Left: branding */
+    .left {
+      padding: 40px 36px;
+      background: linear-gradient(135deg, rgba(7, 9, 13, 0.2), rgba(7, 12, 20, 0.4));
+      display: flex;
+      flex-direction: column;
+      gap: 24px
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .logo svg {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.2px
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .features {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px
+    }
+
+    .feature {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start
+    }
+
+    .feature strong {
+      display: block
+    }
+
+    /* Right: form */
+    .right {
+      padding: 34px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.015));
+    }
+
+    .right h2 {
+      margin: 0 0 6px;
+      font-size: 18px
+    }
+
+    .right p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px
+    }
+
+    .input {
+      position: relative
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: var(--glass);
+      color: inherit;
+      font-size: 14px
+    }
+
+    input:focus {
+      outline: 2px solid rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.4)
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .remember {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .btn {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #021427;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px
+    }
+
+    .socials button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer
+    }
+
+    /* password toggle */
+    .toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--muted)
+    }
+
+    .strength {
+      height: 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden
+    }
+
+    .strength>i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      transition: width 300ms ease
+    }
+
+    .helper {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px
+    }
+
+    /* small screens */
+    @media (max-width:880px) {
+      .card {
+        grid-template-columns: 1fr;
+        padding: 0
+      }
+
+      .left {
+        display: none
+      }
+
+      .right {
+        padding: 28px
+      }
+    }
+
+    /* sub header */
+    .brand-head {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .brand-head h1 {
+      font-size: 20px;
+      margin: 0
+    }
+
+    footer {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    /* subtle animated grid background */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.06;
+      background-image: linear-gradient(transparent 24px, rgba(255, 255, 255, 0.02) 24px), linear-gradient(90deg, transparent 24px, rgba(255, 255, 255, 0.02) 24px);
+      background-size: 48px 48px;
+      pointer-events: none
+    }
+
+    .left-image img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 12px;
+      opacity: 0.9;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="card" role="main" aria-labelledby="main-title">
+      <div class="left" aria-hidden="false">
+        <div class="logo">
+          <!-- simple shield icon representing CTI -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <defs></defs>
+            <path d="M12 2l7 3v5c0 5-3.5 9.5-7 12-3.5-2.5-7-7-7-12V5l7-3z" fill="#0ea5a4" opacity="0.95" />
+            <path d="M9.5 10.5c0-1.9 1.6-3.5 3.5-3.5" stroke="#021427" stroke-width="1.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <div>
+            <div class="title">Cyber Threat Intelligence Aggregator</div>
+            <div class="subtitle">Centralize, analyze and act on threat feeds — secure decisions faster.</div>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2v6" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.2 7.8l4.6 4.6" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M18 13.5L12 19.5" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <div>
+              <strong>Unified feeds</strong>
+              <div class="subtitle">Aggregate multiple OSINT & proprietary feeds.</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8" stroke="#7c3aed" stroke-width="1.6" />
+              <path d="M8 12h8" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <div>
+              <strong>Real-time alerts</strong>
+              <div class="subtitle">Prioritize what matters using scoring & context.</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="3" stroke="#7c3aed" stroke-width="1.6" />
+              <path d="M8 12h8M12 8v8" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <div>
+              <strong>Actionable insights</strong>
+              <div class="subtitle">Exportable indicators, playbooks and CTI reports.</div>
+            </div>
+          </div>
+        </div>
+        <div class="left-image">
+          <img src="static/images/Logo.png">
+
+        </div>
+
+
+      </div>
+
+      <div class="right">
+        <div class="brand-head">
+          <h1 id="main-title">Cyber Threat Intelligence Aggregator</h1>
+        </div>
+        <h2>Sign in to your dashboard</h2>
+        {% if error %}
+          <div style="color:#ff6b6b; margin-bottom:10px;">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        {% if success %}
+          <div style="color:#00e676; margin-bottom:10px;">
+            {{ success }}
+          </div>
+        {% endif %}
+        <p>Enter your credentials to access aggregated threat intelligence, alerts and reports.</p>
+
+        <form id="loginForm" action="/login" method="POST">
+          <div>
+            <label for="email">Email</label>
+            <div class="input">
+              <input id="email" name="email" type="email" placeholder="you@organization.com" required
+                aria-required="true" />
+            </div>
+            <div id="emailErr" class="helper" aria-live="polite"></div>
+          </div>
+
+          <div>
+            <label for="password">Password</label>
+            <div class="input">
+              <input id="password" name="password" type="password" placeholder="Enter your password" required
+                aria-required="true" aria-describedby="pwHelp" />
+              <button type="button" class="toggle" id="togglePw" aria-label="Show password">👁️</button>
+            </div>
+            <div id="pwHelp" class="helper">Minimum 8 characters. Use letters, numbers & symbols.</div>
+            <div class="strength" aria-hidden="false" title="password strength">
+              <i id="strengthBar" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%"></i>
+            </div>
+          </div>
+
+          <div class="row" style="justify-content:space-between;align-items:center;margin-top:6px">
+            <label class="remember"><input id="remember" type="checkbox" /> <span class="small">Remember
+                me</span></label>
+            <a href="#" class="small" id="forgot">Forgot password?</a>
+          </div>
+
+          <div style="margin-top:6px;">
+            <button type="submit" class="btn" id="loginBtn">Sign in</button>
+            <button type="button" class="btn secondary" id="demoBtn" style="margin-top:8px">Try demo mode</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="small">Or sign in with</div>
+            <div class="socials">
+              <button type="button" aria-label="Sign in with Google">Google</button>
+              <button type="button" aria-label="Sign in with Azure">Azure</button>
+              <button type="button" aria-label="Sign in with GitHub">GitHub</button>
+            </div>
+          </div>
+
+          <div id="message" class="helper" style="display:none;"></div>
+        </form>
+
+        <div style="margin-top:14px;color:var(--muted);font-size:13px">New to CTI? <a
+            href="{{ url_for('create_account') }}" style="color:var(--accent);text-decoration:none" id="signup">Create
+            an account</a></div>
+      </div>
+
+      <div class="grid-bg" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script>
+    // Selectors
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const togglePw = document.getElementById('togglePw');
+    const loginForm = document.getElementById('loginForm');
+    const strengthBar = document.getElementById('strengthBar');
+    const emailErr = document.getElementById('emailErr');
+    const message = document.getElementById('message');
+    const remember = document.getElementById('remember');
+
+    // Utility: simple email check
+    function validEmail(v) {
+      return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+    }
+
+    // Password strength estimator (very basic)
+    function pwStrength(pw) {
+      let score = 0;
+      if (!pw) return 0;
+      if (pw.length >= 8) score += 1;
+      if (/[A-Z]/.test(pw)) score += 1;
+      if (/[0-9]/.test(pw)) score += 1;
+      if (/[^A-Za-z0-9]/.test(pw)) score += 1;
+      return score; // 0..4
+    }
+
+    // update strength bar
+    function updateStrength() {
+      const s = pwStrength(password.value);
+      const percent = (s / 4) * 100;
+      strengthBar.style.width = percent + '%';
+      if (s <= 1) strengthBar.style.opacity = '0.5';
+      else strengthBar.style.opacity = '1';
+    }
+
+    password.addEventListener('input', updateStrength);
+
+    // toggle show/hide password
+    togglePw.addEventListener('click', () => {
+      const t = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', t);
+      togglePw.textContent = t === 'password' ? '👁️' : '🔒';
+    });
+
+    // Prefill from localStorage if remembered
+    window.addEventListener('load', () => {
+      try {
+        const saved = localStorage.getItem('cti_remember');
+        if (saved) {
+          const obj = JSON.parse(saved);
+          if (obj.email) { email.value = obj.email; remember.checked = true; }
+        }
+      } catch (e) {/* ignore */ }
+    });
+
+    
+    
+
+    // Demo mode button
+    document.getElementById('demoBtn').addEventListener('click', () => {
+      email.value = 'analyst@example.com';
+      password.value = 'Demo@1234';
+      remember.checked = true;
+      updateStrength();
+      message.style.color = 'var(--muted)';
+      message.textContent = 'Demo credentials filled — press Sign in.';
+    });
+
+    // Forgot password
+    document.getElementById('forgot').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('To reset password, contact your CTI admin or use the organisation SSO flow.');
+    });
+
+    // Create account link → go to create_account.html
+      document.getElementById('signup').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = '/create-account';
+      });
+
+    // Accessibility: show keyboard focus for toggle
+    togglePw.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); togglePw.click(); }
+    });
+  </script>
+
+</body>
+
+</html>

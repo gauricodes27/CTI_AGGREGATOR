@@ -1,0 +1,26 @@
+{
+    "python.defaultInterpreterPath": "python",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "cSpell.words": [
+        "colorama",
+        "dnspython",
+        "dotenv",
+        "Hostnames",
+        "hxxp",
+        "iocs",
+        "itsdangerous",
+        "loginpage",
+        "pagesizes",
+        "pdfgen",
+        "pymongo",
+        "registerables",
+        "reportlab",
+        "sakshidb",
+        "urlhaus",
+        "Werkzeug"
+    ]
+}
