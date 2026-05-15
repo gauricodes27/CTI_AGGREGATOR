@@ -1,87 +1,108 @@
-# CTI_AGGREGATOR
+# 🛡️ Cyber Threat Intelligence (CTI) Aggregator
 
-# 🛡️ CTI Aggregator - Cyber Threat Intelligence Platform
-
-## 📌 Overview
-
-CTI Aggregator is a Cyber Threat Intelligence Platform developed as a final year major project. The system collects, analyzes, and visualizes cyber threat intelligence data using APIs, NLP techniques, machine learning models, and interactive dashboards.
-
-The platform helps users identify Indicators of Compromise (IOCs) such as:
-
-* IP Addresses
-* URLs
-* Domains
-* Hashes (MD5, SHA1, SHA256)
-* Threat Reports
-
-It also provides threat scoring, visualization, report generation, and centralized monitoring through a modern dashboard interface.
+> An automated Cyber Threat Intelligence platform that collects, processes, analyzes, and visualizes real-time cyber threat data from multiple OSINT sources.
 
 ---
 
-# 🚀 Features
+## 🚀 Overview
 
-✅ User Authentication System
-✅ Interactive Cybersecurity Dashboard
-✅ IOC Extraction using NLP
-✅ Threat Intelligence Aggregation
-✅ Risk Scoring Module
-✅ MongoDB Database Integration
-✅ Threat Report Generation
-✅ Responsive Frontend UI
-✅ API Integration (VirusTotal / Threat APIs)
-✅ Machine Learning-based Threat Analysis
+The **Cyber Threat Intelligence (CTI) Aggregator** is a centralized cybersecurity platform designed to automate the collection and analysis of cyber threat intelligence from publicly available sources such as security blogs, feeds, forums, and reports.
+
+The system leverages **Python**, **Flask**, **MongoDB**, and **Natural Language Processing (NLP)** techniques to extract Indicators of Compromise (IOCs) including:
+
+* 🌐 Malicious Domains
+* 🌍 IP Addresses
+* 🔐 File Hashes
+* 🦠 Malware Names
+* ⚠️ Threat Indicators
+
+The extracted intelligence is displayed through an interactive dashboard for real-time monitoring and analysis.
+
+---
+
+# ✨ Key Features
+
+✔️ Automated OSINT Data Collection
+✔️ NLP-Based IOC Extraction
+✔️ Real-Time Threat Visualization Dashboard
+✔️ REST API Integration
+✔️ Secure JWT Authentication
+✔️ MongoDB Threat Intelligence Storage
+✔️ Responsive & Interactive UI
+✔️ Threat Reports & Analytics
+
+---
+
+# 🏗️ System Architecture
+
+```text
+OSINT Sources
+     ↓
+Web Scraping Engine
+     ↓
+NLP & IOC Extraction
+     ↓
+MongoDB Database
+     ↓
+Flask Backend APIs
+     ↓
+Interactive Dashboard
+```
 
 ---
 
 # 🛠️ Tech Stack
 
-## Frontend
-
-* HTML
-* CSS
-* JavaScript
-* Bootstrap
-
-## Backend
+## 👨‍💻 Backend
 
 * Python
 * Flask
 
-## Database
+## 🎨 Frontend
 
-* MongoDB Atlas
+* HTML5
+* CSS3
+* JavaScript
+* Bootstrap
+* Chart.js
 
-## Machine Learning & NLP
+## 🧠 NLP & Processing
 
-* Scikit-learn
-* NLTK
-* Pandas
-* NumPy
+* spaCy
+* Regex
 
-## Deployment
+## 🗄️ Database
 
-* Render
-* GitHub
+* MongoDB
+
+## 🔒 Security
+
+* JWT Authentication
+* HTTPS Security
 
 ---
 
-# 📂 Project Structure
+# 📌 Core Modules
 
-```bash
-CTI_AGGREGATOR/
-│
-├── app.py
-├── requirements.txt
-├── Procfile
-├── runtime.txt
-├── templates/
-├── static/
-├── nlp/
-├── risk_scoring_module/
-├── data_collection_module/
-├── reports/
-└── utils/
-```
+### 🔍 Threat Data Collection
+
+Automated web scraping from cybersecurity blogs, feeds, and OSINT platforms.
+
+### 🧠 IOC Extraction Engine
+
+Extracts Indicators of Compromise using NLP and Regex techniques.
+
+### 📊 Dashboard & Visualization
+
+Interactive dashboard for monitoring threat intelligence trends and reports.
+
+### 🔗 REST API Services
+
+Provides API support for integration with external security tools.
+
+### 🔐 Authentication System
+
+Implements secure login and protected routes using JWT.
 
 ---
 
@@ -90,22 +111,17 @@ CTI_AGGREGATOR/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/gauricodes27/CTI_AGGREGATOR.git
+git clone https://github.com/your-username/CTI-Aggregator.git
+cd CTI-Aggregator
 ```
 
-## 2️⃣ Navigate to Project Folder
-
-```bash
-cd CTI_AGGREGATOR
-```
-
-## 3️⃣ Create Virtual Environment
+## 2️⃣ Create Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-## 4️⃣ Activate Virtual Environment
+## 3️⃣ Activate Virtual Environment
 
 ### Windows
 
@@ -113,19 +129,19 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### Mac/Linux
+### Linux / Mac
 
 ```bash
 source venv/bin/activate
 ```
 
-## 5️⃣ Install Dependencies
+## 4️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 6️⃣ Run Application
+## 5️⃣ Run Application
 
 ```bash
 python app.py
@@ -133,109 +149,53 @@ python app.py
 
 ---
 
-# 🌐 Deployment
-
-The project is deployed using:
-
-* Render (Cloud Hosting)
-* MongoDB Atlas (Cloud Database)
-* GitHub (Version Control)
-
----
-
 # 📸 Project Screenshots
 
 ## 🔐 Login Page
 
-Add screenshot here:
-
-```md
-![Login Page](screenshots/c:\Users\Hp\OneDrive\Pictures\Screenshots\login-page.png)
-```
-
----
+*Add screenshot here*
 
 ## 📊 Dashboard
 
-Add screenshot here:
-
-```md
-![Dashboard](screenshots/dashboard.jpeg)
-```
-
----
-
-## 📊 Home Page
-
-Add screenshot here:
-
-```md
-![Home Page](screenshots/homepage.png)
-```
----
-
+*Add screenshot here*
 
 ## 📑 Reports Page
 
-Add screenshot here:
-
-```md
-![Reports Page](screenshots/report-page.png)
-```
-
----
-
-# 🔍 Modules Included
-
-## 📌 IOC Extraction Module
-
-Extracts Indicators of Compromise from threat intelligence text using NLP and Regex patterns.
-
-## 📌 Threat Intelligence Aggregation
-
-Collects threat data from APIs and external intelligence sources.
-
-## 📌 Risk Scoring Module
-
-Assigns threat severity scores based on extracted indicators and threat behavior.
-
-## 📌 Reporting Module
-
-Generates reports and visualizes cyber threat analytics.
+*Add screenshot here*
 
 ---
 
 # 📈 Future Enhancements
 
-* Real-time Threat Monitoring
-* SIEM Integration
-* Email Alert System
-* Role-based Access Control
-* Docker Deployment
-* Elasticsearch Integration
-* Advanced Threat Analytics
+* 🤖 AI-Based Threat Scoring
+* 📡 Real-Time Alert System
+* 🔗 SIEM Integration
+* 🌍 Multilingual Threat Analysis
+* 📱 Mobile Application Support
+* 🧠 Predictive Threat Analytics
 
 ---
 
-# 👩‍💻 Author
+# 👥 Contributors
 
-**Gauri Gadadhe**
-B.Tech Information Technology
-Cybersecurity & Data Analytics Enthusiast
-
-GitHub: [https://github.com/gauricodes27](https://github.com/gauricodes27)
+* **Gauri Gadadhe**
+* **Sakshi Kadam**
+* **Darshita Mhapankar**
 
 ---
 
-# ⭐ Conclusion
+# 🎓 Academic Project
 
-CTI Aggregator is designed to provide centralized cyber threat monitoring and intelligence analysis using modern cybersecurity techniques, machine learning, and cloud deployment practices.
+Developed as a Final Year B.Tech Information Technology Major Project.
 
-This project demonstrates practical implementation of:
+---
 
-* Cyber Threat Intelligence
-* NLP-based IOC Extraction
-* Flask Web Development
-* Cloud Deployment
-* Database Integration
-* Dashboard Analytics
+# 📄 License
+
+This project is intended for **educational and research purposes only**.
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub!
