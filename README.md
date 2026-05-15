@@ -73,6 +73,7 @@ CTI_AGGREGATOR/
 ├── app.py
 ├── requirements.txt
 ├── Procfile
+├── screenshots
 ├── runtime.txt
 ├── templates/
 ├── static/
