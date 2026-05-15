@@ -161,7 +161,7 @@ Add screenshot here:
 Add screenshot here:
 
 ```md
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.jpeg)
 ```
 
 ---
