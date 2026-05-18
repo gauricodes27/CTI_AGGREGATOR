@@ -32,13 +32,13 @@ The extracted intelligence is displayed through an interactive dashboard for rea
 
 # ✨ Key Features
 
-✔️ Automated OSINT Data Collection
-✔️ NLP-Based IOC Extraction
-✔️ Real-Time Threat Visualization Dashboard
-✔️ REST API Integration
-✔️ Secure JWT Authentication
-✔️ MongoDB Threat Intelligence Storage
-✔️ Responsive & Interactive UI
+✔️ Automated OSINT Data Collection<br>
+✔️ NLP-Based IOC Extraction<br>
+✔️ Real-Time Threat Visualization Dashboard<br>
+✔️ REST API Integration<br>
+✔️ Secure JWT Authentication<br>
+✔️ MongoDB Threat Intelligence Storage<br>
+✔️ Responsive & Interactive UI<br>
 ✔️ Threat Reports & Analytics
 
 ---
